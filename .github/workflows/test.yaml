@@ -1,0 +1,55 @@
+name: Test
+
+on:
+  workflow_run:
+    workflows: [Static analysis]
+    types:
+      - completed
+
+jobs:
+  frontend_tests:
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Required to checkout the code
+      contents: read
+      # Required to put a comment into the pull-request
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Open frontend directory
+        run: cd frontend
+      
+      - name: 'Install Node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      
+      - name: 'Install Deps'
+        run: npm install
+
+      - name: 'Test'
+        run: npx vitest --coverage.enabled true
+
+      - name: Vitest Coverage Report
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2.5.0
+
+  backend_tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Open backend directory
+        run: cd backend
+
+      - name: Django Coverage action
+        uses: actions/python-django-coverage-gitHub-action@0.9
+        with:
+          django-app: 'myrdal_api'
+          minimum-coverage: '0'
