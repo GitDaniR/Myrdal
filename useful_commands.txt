@@ -1,0 +1,22 @@
+Frontend
+# Start application
+npm run dev
+
+# Linting
+npm run lint
+
+# Testing
+npm run coverage
+
+Backend
+# Start application
+python manage.py runserver
+
+# Linting
+black . --check -S --target-version py311
+pylint backend
+pylint myrdal_api
+
+# Testing
+coverage run manage.py test
+coverage report -m
