@@ -9,6 +9,9 @@ on:
 jobs:
   frontend_tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'frontend'
 
     permissions:
       # Required to checkout the code
@@ -40,6 +43,9 @@ jobs:
 
   backend_tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'backend'
     
     steps:
       - name: Checkout repository
