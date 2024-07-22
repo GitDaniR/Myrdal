@@ -9,7 +9,10 @@ npm run lint
 npm run coverage
 
 Backend
-# Start application
+# Make and apply migrations / Start application
+python manage.py makemigrations
+python manage.py migrate
+
 python manage.py runserver
 
 # Linting
