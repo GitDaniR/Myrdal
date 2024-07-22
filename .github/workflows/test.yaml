@@ -1,6 +1,7 @@
 name: Test
 
 on:
+  # Triggers the workflow after static analysis is completed.
   workflow_run:
     workflows: [Static analysis]
     types:
@@ -22,9 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Open frontend directory
-        run: cd frontend
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
       
       - name: 'Install Node'
         uses: actions/setup-node@v4
@@ -50,9 +50,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Open backend directory
-        run: cd backend
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: Django Coverage action
         uses: actions/python-django-coverage-gitHub-action@0.9
