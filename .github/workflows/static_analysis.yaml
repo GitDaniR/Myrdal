@@ -2,10 +2,8 @@ name: Static analysis
 
 on:
   # Triggers the workflow on push or pull request events for all branches
-  push:
-    branches: [ "*" ]
   pull_request:
-    branches: [ "*" ]
+    branches: [ "dev", "main" ]
 
   workflow_dispatch:
 
@@ -13,13 +11,13 @@ jobs:
   frontend_linting:
     name: Run frontend linting tools
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'frontend'
 
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
-      
-      - name: Open frontend directory
-        run: cd frontend
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
@@ -27,21 +25,31 @@ jobs:
           node-version: 22
 
       - name: Install Node.js dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
           eslint: true
-          stylelint: true
+          eslint_dir: 'frontend'
+
+      - name: Run stylelint with reviewdog
+        uses: reviewdog/action-stylelint@v1.22.1
+        with:
+          reporter: github-pr-review
+          stylelint_input: "**/*.css"
+          workdir: 'frontend'
   
   backend_linting:
     name: Run backend linting tools
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'backend'
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Open backend directory
         run: cd backend
