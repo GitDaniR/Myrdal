@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
       
       - name: 'Install Node'
         uses: actions/setup-node@v4
@@ -48,6 +50,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: Django Coverage action
         uses: actions/python-django-coverage-gitHub-action@0.9
