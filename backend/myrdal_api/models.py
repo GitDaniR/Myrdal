@@ -12,6 +12,7 @@ class CustomUser(AbstractUser):
     """
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    date_of_birth = models.DateField()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'date_of_birth']
