@@ -54,7 +54,7 @@ jobs:
           ref: ${{ github.event.workflow_run.head_branch }}
 
       - name: Django Coverage action
-        uses: actions/python-django-coverage-gitHub-action@0.9
+        uses: dc740/django-coveragepy-github-action@0.9
         with:
           django-app: 'myrdal_api'
           minimum-coverage: '0'
