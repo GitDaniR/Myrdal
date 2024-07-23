@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_spectacular',
     'djoser',
     'myrdal_api',
@@ -74,6 +75,7 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create': 'myrdal_api.serializers.CustomUserCreateSerializer',
         'user': 'myrdal_api.serializers.CustomUserSerializer',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
         'current_user': 'myrdal_api.serializers.CustomUserSerializer',
     },
 }
