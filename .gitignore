@@ -188,3 +188,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# SSL certificates
+*.pem
