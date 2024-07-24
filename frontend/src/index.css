@@ -10,7 +10,7 @@
 
 @layer components {
     .form-container {
-        @apply shadow-lg rounded-lg bg-white text-xl p-11;
+        @apply shadow-lg rounded-lg bg-white text-xl p-9;
     }
 
     .form-block * {
