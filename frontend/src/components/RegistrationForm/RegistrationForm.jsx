@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 const handleRegisterSubmit = (e) => {
     e.preventDefault();
 
@@ -18,6 +20,7 @@ const RegistrationForm = () => {
                 <input id="lastName" placeholder="Enter your last name" required className='input-field'></input>
                 <label htmlFor="dateOfBirth">Date of birth</label>
                 <input type="date" id="dateOfBirth" required className="input-field"></input>
+                <Link to="/" className="hyperlink">Back to login</Link>
                 <button type="button" onClick={handleRegisterSubmit} className="form-btn">Sign Up</button>
             </form>
         </div>
