@@ -1,13 +1,14 @@
 import './App.css'
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import RegistrationPage from './pages/RegistrationPage'
-import LoginPage from './pages/LoginPage'
+import LoginForm from './components/LoginForm'
+import BasePage from './pages/BasePage'
 
 function App() {
 
   const router = createBrowserRouter(createRoutesFromElements(
     <>
-      <Route index element={<LoginPage />} />
+      <Route index element={<BasePage><LoginForm/></BasePage>} />
       <Route path='/register' element={<RegistrationPage />}/>
     </>
   ))
