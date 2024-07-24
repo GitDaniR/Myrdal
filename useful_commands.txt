@@ -14,7 +14,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 python manage.py runserver
-python manage.py runserver_plus --cert-file cert.crt --key-file cert.key
+python manage.py runserver_plus --cert-file cert.pem --key-file key.pem
 
 # Linting
 black . --check -S --target-version py311
