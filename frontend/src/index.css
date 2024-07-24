@@ -10,7 +10,7 @@
 
 @layer components {
     .form-container {
-        @apply shadow-lg rounded-lg bg-white text-xl p-12;
+        @apply shadow-lg rounded-lg bg-white text-xl p-11;
     }
 
     .form-block * {
@@ -22,7 +22,7 @@
     }
 
     .form-btn {
-        @apply border-2 rounded-lg mx-auto px-12 py-1 bg-[#22c55e] hover:bg-[#15803d] delay-100 duration-300 ease-in-out text-white;
+        @apply border-2 rounded-lg mx-auto my-1 px-12 py-1 bg-[#22c55e] hover:bg-[#15803d] delay-100 duration-300 ease-in-out text-white;
     }
 
     .hyperlink {
