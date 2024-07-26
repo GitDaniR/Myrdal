@@ -1,23 +1,26 @@
 import axios from "axios";
-import {Link} from 'react-router-dom'
-
-const handleRegisterSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const user = Object.fromEntries(formData.entries());
-
-    axios
-        .post("/api/auth/users/", user)
-        .then((response) => {
-            console.log(response.status + ", I registered!")
-        })
-        .catch((error) => {
-            console.log(error.message)
-        });
-}
+import {Link, useNavigate} from 'react-router-dom'
 
 const RegistrationForm = () => {
+    const navigate = useNavigate();
+
+    const handleRegisterSubmit = (e) => {
+        e.preventDefault();
+    
+        const formData = new FormData(e.target);
+        const user = Object.fromEntries(formData.entries());
+    
+        axios
+            .post("/api/auth/users/", user)
+            .then((response) => {
+                console.log(response.status + ", I registered!");
+                navigate('/');
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    }
+
     return (
         <div className='form-container'>
             <form className='form-block' onSubmit={handleRegisterSubmit}>
