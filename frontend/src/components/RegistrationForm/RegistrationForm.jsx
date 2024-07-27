@@ -12,8 +12,7 @@ const RegistrationForm = () => {
     
         axios
             .post("/api/auth/users/", user)
-            .then((response) => {
-                console.log(response.status + ", I registered!");
+            .then(() => {
                 navigate('/');
             })
             .catch((error) => {
