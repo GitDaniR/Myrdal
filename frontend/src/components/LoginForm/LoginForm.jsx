@@ -1,10 +1,13 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
 import {Link, useNavigate} from 'react-router-dom'
+import ToastContext from "../../contexts/ToastContext";
+import { useContext } from "react";
 
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const showToast = useContext(ToastContext);
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
@@ -16,10 +19,11 @@ const LoginForm = () => {
             .post("/api/auth/jwt/create/", loginInfo)
             .then((response) => {
                 Cookies.set('access', response.data['access']);
+                showToast('success', "Login successful.");
                 navigate('/dashboard');
             })
-            .catch((error) => {
-                console.log(error.message)
+            .catch(() => {
+                showToast('error', "Wrong email or password.");
             });
     }
 
