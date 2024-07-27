@@ -1,8 +1,11 @@
 import axios from "axios";
 import {Link, useNavigate} from 'react-router-dom'
+import ToastContext from "../../contexts/ToastContext";
+import { useContext } from "react";
 
 const RegistrationForm = () => {
     const navigate = useNavigate();
+    const showToast = useContext(ToastContext);
 
     const handleRegisterSubmit = (e) => {
         e.preventDefault();
@@ -13,10 +16,12 @@ const RegistrationForm = () => {
         axios
             .post("/api/auth/users/", user)
             .then(() => {
+                showToast('success', "Registration successful.");
+                setTimeout(() => {showToast('info', "Now you can login.")}, 1);
                 navigate('/');
             })
             .catch((error) => {
-                console.log(error.message);
+                showToast('error', error.message);
             });
     }
 
