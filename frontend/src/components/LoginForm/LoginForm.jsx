@@ -1,23 +1,28 @@
 import axios from "axios";
-import {Link} from 'react-router-dom'
+import Cookies from 'js-cookie';
+import {Link, useNavigate} from 'react-router-dom'
 
-const handleLoginSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const loginInfo = Object.fromEntries(formData.entries());
-
-    axios
-        .post("/api/auth/jwt/create/", loginInfo)
-        .then((response) => {
-            console.log(response.status + ", I logged in!")
-        })
-        .catch((error) => {
-            console.log(error.message)
-        });
-}
 
 const LoginForm = () => {
+    const navigate = useNavigate();
+
+    const handleLoginSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const loginInfo = Object.fromEntries(formData.entries());
+
+        axios
+            .post("/api/auth/jwt/create/", loginInfo)
+            .then((response) => {
+                Cookies.set('access', response.data['access']);
+                navigate('/dashboard');
+            })
+            .catch((error) => {
+                console.log(error.message)
+            });
+    }
+
     return (
         <div className='form-container'>
             <form className='form-block' onSubmit={handleLoginSubmit}>
