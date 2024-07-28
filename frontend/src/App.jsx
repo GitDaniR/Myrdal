@@ -19,7 +19,7 @@ function App() {
 
     setTimeout(() => {
       removeToast(toast.id)
-    }, 100000); // 10 seconds
+    }, 10000); // 10 seconds
 
     setToasts((prevToasts) => [...prevToasts, toast]);
   }
