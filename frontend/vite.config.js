@@ -1,5 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
+import { configDefaults } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import mkcert from 'vite-plugin-mkcert'
 import https from "https";
@@ -19,9 +20,19 @@ export default defineConfig({
     },
   },
   test: {
-      coverage: {
-        reporter: ['text', 'json-summary', 'json'],
-        reportOnFailure: true,
-      }
+    globals: true,
+    environment: "jsdom",
+    coverage: {
+      reporter: ['text', 'json-summary', 'json'],
+      reportOnFailure: true,
+      exclude: [
+        ...configDefaults.exclude,
+        '**/index.jsx',
+        '**/.eslintrc.cjs',
+        '**/postcss.config.js',
+        '**/tailwind.config.js',
+        '**/*{.,-}{test,spec,bench,benchmark}?(-d).?(c|m)[jt]s?(x)',
+      ],
+    }
   },
 })
