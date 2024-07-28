@@ -23,7 +23,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     coverage: {
-      reporter: ['text', 'json-summary', 'json'],
+      reporter: ['text', 'json-summary', 'json', 'html'],
       reportOnFailure: true,
       exclude: [
         ...configDefaults.exclude,
