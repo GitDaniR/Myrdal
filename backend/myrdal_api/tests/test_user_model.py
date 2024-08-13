@@ -1,6 +1,7 @@
 from django.test import TestCase
 from myrdal_api.models import CustomUser
 
+
 class CustomUserTest(TestCase):
     def test_create_user(self):
         user = CustomUser.objects.create_user(
@@ -8,7 +9,7 @@ class CustomUserTest(TestCase):
             password='password123',
             first_name='Test',
             last_name='User',
-            date_of_birth='2000-01-01'
+            date_of_birth='2000-01-01',
         )
         self.assertEqual(user.__str__(), 'test@example.com')
         self.assertEqual(user.email, 'test@example.com')
@@ -24,7 +25,7 @@ class CustomUserTest(TestCase):
                 password='password123',
                 first_name='Test',
                 last_name='User',
-                date_of_birth='2000-01-01'
+                date_of_birth='2000-01-01',
             )
 
     def test_create_superuser(self):
@@ -33,7 +34,7 @@ class CustomUserTest(TestCase):
             password='password123',
             first_name='Admin',
             last_name='User',
-            date_of_birth='2000-01-01'
+            date_of_birth='2000-01-01',
         )
         self.assertEqual(user.email, 'admin@example.com')
         self.assertTrue(user.is_staff)
@@ -47,7 +48,7 @@ class CustomUserTest(TestCase):
                 first_name='Admin',
                 last_name='User',
                 date_of_birth='2000-01-01',
-                is_staff=False
+                is_staff=False,
             )
 
     def test_create_superuser_not_superuser(self):
@@ -58,5 +59,5 @@ class CustomUserTest(TestCase):
                 first_name='Admin',
                 last_name='User',
                 date_of_birth='2000-01-01',
-                is_superuser=False
+                is_superuser=False,
             )
