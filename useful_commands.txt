@@ -9,8 +9,12 @@ npm run lint
 npm run coverage
 
 Backend
-# Start application
+# Make and apply migrations / Start application
+python manage.py makemigrations
+python manage.py migrate
+
 python manage.py runserver
+python manage.py runserver_plus --cert-file cert.pem --key-file key.pem
 
 # Linting
 black . --check -S --target-version py311
@@ -18,5 +22,6 @@ pylint backend
 pylint myrdal_api
 
 # Testing
-coverage run manage.py test
+coverage run --branch manage.py test
 coverage report -m
+coverage html

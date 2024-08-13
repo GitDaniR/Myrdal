@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useState } from "react";
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
+import LoginForm from './components/LoginForm'
+import RegistrationForm from './components/RegistrationForm'
+import BasePage from './pages/BasePage'
+import ToastList from './components/ToastList'
+import ToastContext from './contexts/ToastContext'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [toasts, setToasts] = useState([]);
+
+  const showToast = (type, message) => {
+    const toast = {
+      'id': Date.now(),
+      'type': type,
+      'message': message,
+    }
+
+    setTimeout(() => {
+      removeToast(toast.id)
+    }, 10000); // 10 seconds
+
+    setToasts((prevToasts) => [...prevToasts, toast]);
+  }
+
+  const removeToast = (id) => {
+    setToasts((prevToasts) => prevToasts.filter(toast => toast.id !== id) )
+  }
+
+  const router = createBrowserRouter(createRoutesFromElements(
+    <>
+      <Route index element={<BasePage><LoginForm/></BasePage>} />
+      <Route path='/register' element={<BasePage><RegistrationForm/></BasePage>}/>
+    </>
+  ))
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card text-3xl font-bold underline">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <ToastContext.Provider value={showToast}>
+      <RouterProvider router={router} />
+      <ToastList data={toasts} removeToast={removeToast}/>
+      </ToastContext.Provider>
+  );
 }
 
 export default App
