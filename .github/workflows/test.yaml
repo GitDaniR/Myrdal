@@ -40,6 +40,8 @@ jobs:
       - name: Vitest Coverage Report
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2.5.0
+        with:
+          working-directory: 'frontend'
 
   backend_tests:
     runs-on: ubuntu-latest
