@@ -53,8 +53,13 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_branch }}
 
-      - name: Django Coverage action
-        uses: dc740/django-coveragepy-github-action@0.9
+      - name: 'Generate coverage'
+        run: |
+            coverage run --branch manage.py test
+            coverage xml
+
+      - name: 'Report coverage'
+        uses: orgoro/coverage@v3.2
         with:
-          django-app: 'myrdal_api'
-          minimum-coverage: '0'
+          coverageFile: coverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
