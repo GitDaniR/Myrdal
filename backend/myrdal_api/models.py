@@ -8,8 +8,8 @@ from myrdal_api.managers import CustomUserManager
 
 
 class CustomUser(AbstractUser):
-    """ The user model.
-    """
+    """The user model."""
+
     username = None
     email = models.EmailField(_('email address'), unique=True)
     date_of_birth = models.DateField()

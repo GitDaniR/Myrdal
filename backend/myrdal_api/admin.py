@@ -7,14 +7,26 @@ from django.contrib.auth.models import Group
 from myrdal_api.forms import CustomUserCreationForm, CustomUserChangeForm
 from myrdal_api.models import CustomUser
 
+
 class CustomUserAdmin(UserAdmin):
-    """ The custom class for admin users.
-    """
+    """The custom class for admin users."""
+
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ("email", "first_name", "last_name", "date_of_birth", "is_staff", "is_active",)
-    list_filter = ("email", "is_staff", "is_active",)
+    list_display = (
+        "email",
+        "first_name",
+        "last_name",
+        "date_of_birth",
+        "is_staff",
+        "is_active",
+    )
+    list_filter = (
+        "email",
+        "is_staff",
+        "is_active",
+    )
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         ("Permissions", {"fields": ("is_staff", "is_active")}),

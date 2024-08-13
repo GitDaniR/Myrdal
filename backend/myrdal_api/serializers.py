@@ -1,21 +1,29 @@
 """ Module providin serializers. """
+
 import datetime
 from djoser.serializers import ValidationError
 from djoser.serializers import UserSerializer, UserCreateSerializer
 
 from myrdal_api.models import CustomUser
 
+
 class CustomUserCreateSerializer(UserCreateSerializer):
-    """ The serializer for creating CustomUser objects.
-    """
+    """The serializer for creating CustomUser objects."""
+
     class Meta:
-        """ Define underlying class and required fields.
-        """
+        """Define underlying class and required fields."""
+
         model = CustomUser
-        fields = ['email', 'password', 'first_name', 'last_name', 'date_of_birth',]
+        fields = [
+            'email',
+            'password',
+            'first_name',
+            'last_name',
+            'date_of_birth',
+        ]
 
     def validate_date_of_birth(self, value):
-        """ Validator which prevents users from setting a date of birth
+        """Validator which prevents users from setting a date of birth
         which is in the future.
 
         Args:
@@ -31,11 +39,17 @@ class CustomUserCreateSerializer(UserCreateSerializer):
             raise ValidationError("The date cannot be in the future!")
         return value
 
+
 class CustomUserSerializer(UserSerializer):
-    """ The class for serializing CustomUser objects.
-    """
+    """The class for serializing CustomUser objects."""
+
     class Meta:
-        """ Define underlying class and required fields.
-        """
+        """Define underlying class and required fields."""
+
         model = CustomUser
-        fields = ['email', 'first_name', 'last_name', 'date_of_birth',]
+        fields = [
+            'email',
+            'first_name',
+            'last_name',
+            'date_of_birth',
+        ]
