@@ -30,3 +30,23 @@ class CustomUser(AbstractUser):
             str: The email of the user.
         """        
         return self.email
+
+class Account(models.Model):
+    """
+    The Account model represents a user's account in the system.
+    It stores the name of the account and the current balance.
+
+    """
+
+    user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
+    account_name = models.CharField(max_length=50)
+    current_balance = models.DecimalField(max_digits=15, decimal_places=2, default=0.0)
+
+    def __str__(self):
+        """
+        Returns a string representation of the Account instance.
+
+        Returns:
+            str: The name of the account.
+        """
+        return self.account_name
