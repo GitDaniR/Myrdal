@@ -1,8 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from myrdal_api.models import Account
+from myrdal_api.permissions import IsOwner
 from myrdal_api.serializers import AccountSerializer
 
 
@@ -18,7 +20,8 @@ class AccountApiView(APIView):
     """
 
     # Check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def get(self, request):
         """
