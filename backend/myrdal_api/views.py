@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -36,6 +38,27 @@ class AccountApiView(APIView):
         accounts = Account.objects.filter(user=request.user.id)
         serializer = AccountSerializer(accounts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def put(self, request, account_id):
+        """
+        Handles PUT requests. Updates an existing account associated with the authenticated user.
+
+        Args:
+            request (Request): The PUT request sent by the client containing the data for the account update.
+            account_id (int): The primary key id of the account.
+
+        Returns:
+            Response: A HTTP response containing the serialized data of the updated account or an error message.
+        """
+        data = {
+            "account_name": request.data.get("account_name"),
+        }
+        account = get_object_or_404(Account, pk=account_id, user=request.user.id)
+        serializer = AccountSerializer(account, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request):
         """
@@ -57,3 +80,18 @@ class AccountApiView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, account_id):
+        """
+        Handles DELETE requests. Deletes an existing account associated with the authenticated user.
+
+        Args:
+            request (Request): The DELETE request sent by the client.
+            account_id (int): The primary key id of the account.
+
+        Returns:
+            Response: A HTTP response with a success message or an error message.
+        """
+        account = get_object_or_404(Account, pk=account_id, user=request.user.id)
+        account.delete()
+        return Response({"detail": "Account deleted"}, status=status.HTTP_204_NO_CONTENT)
