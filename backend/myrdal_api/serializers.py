@@ -3,8 +3,9 @@
 import datetime
 from djoser.serializers import ValidationError
 from djoser.serializers import UserSerializer, UserCreateSerializer
+from rest_framework import serializers
 
-from myrdal_api.models import CustomUser
+from myrdal_api.models import CustomUser, Account
 
 
 class CustomUserCreateSerializer(UserCreateSerializer):
@@ -53,3 +54,8 @@ class CustomUserSerializer(UserSerializer):
             'last_name',
             'date_of_birth',
         ]
+
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['user', 'account_name', 'current_balance']
