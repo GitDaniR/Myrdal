@@ -21,7 +21,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout repository
+      - name: 'Checkout repository'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_branch }}
@@ -31,13 +31,13 @@ jobs:
         with:
           node-version: '20.x'
       
-      - name: 'Install Deps'
+      - name: 'Install Dependencies'
         run: npm install
 
-      - name: 'Test'
+      - name: 'Run Tests'
         run: npx vitest --coverage.enabled true
 
-      - name: Vitest Coverage Report
+      - name: 'Display Vitest Coverage Report'
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2.5.0
         with:
@@ -50,12 +50,22 @@ jobs:
         working-directory: 'backend'
     
     steps:
-      - name: Checkout repository
+      - name: 'Checkout repository'
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_branch }}
 
-      - name: 'Test'
+      - name: 'Set up Python 3.11'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 'Install Dependencies'
+        run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+
+      - name: 'Run Tests'
         run: |
             coverage run --branch manage.py test
             coverage xml
