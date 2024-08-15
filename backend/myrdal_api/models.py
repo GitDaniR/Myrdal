@@ -64,7 +64,8 @@ class Transaction(models.Model):
     Note:
         The description and the category are optional.
 
-    """    
+    """
+
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     payee = models.CharField(max_length=100)
     date_time = models.DateTimeField()
@@ -89,6 +90,6 @@ class Transaction(models.Model):
 
         Returns:
             str: The payee, the amount, the date-time and the category.
-        """        
+        """
         formatted_date_time = self.date_time.strftime("%Y-%m-%d %H:%M:%S")
         return f"{self.payee} : {self.amount:.2f} , {formatted_date_time} , ({self.category})"
