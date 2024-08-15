@@ -12,8 +12,6 @@ class CustomUserCreateSerializer(UserCreateSerializer):
     """The serializer for creating CustomUser objects."""
 
     class Meta:
-        """Define underlying class and required fields."""
-
         model = CustomUser
         fields = [
             'email',
@@ -45,8 +43,6 @@ class CustomUserSerializer(UserSerializer):
     """The class for serializing CustomUser objects."""
 
     class Meta:
-        """Define underlying class and required fields."""
-
         model = CustomUser
         fields = [
             'email',
