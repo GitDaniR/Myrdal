@@ -69,6 +69,7 @@ jobs:
         with:
           black: true
           pylint: true
+          pylint_args: "--load-plugins pylint_django"
 
   duplicate-code-check:
     name: Check for duplicate code
