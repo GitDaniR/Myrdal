@@ -1,3 +1,7 @@
+"""
+This module provides custom permission classes.
+"""
+
 from rest_framework import permissions
 
 from myrdal_api.models import Account, Transaction
@@ -13,7 +17,8 @@ class IsOwner(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         """
-        Overridden method from BasePermission to check if the request user is the owner of the object.
+        Overridden method from BasePermission to check if the request user is the owner
+        of the object.
 
         Args:
             request (rest_framework.request.Request): The current request instance.
@@ -25,6 +30,6 @@ class IsOwner(permissions.BasePermission):
         """
         if isinstance(obj, Account):
             return obj.user == request.user
-        elif isinstance(obj, Transaction):
+        if isinstance(obj, Transaction):
             return obj.account.user == request.user
         return False

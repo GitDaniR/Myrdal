@@ -1,3 +1,7 @@
+"""
+This module provides API views for theMyrdal API.
+"""
+
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 
@@ -33,7 +37,8 @@ class AccountApiView(APIView):
             request (Request): The GET request sent by the client.
 
         Returns:
-            Response: A HTTP response containing the serialized data of the accounts or an error message.
+            Response: A HTTP response containing the serialized data of the accounts or
+            an error message.
         """
         accounts = Account.objects.filter(user=request.user.id)
         serializer = AccountSerializer(accounts, many=True)
@@ -44,11 +49,13 @@ class AccountApiView(APIView):
         Handles PUT requests. Updates an existing account associated with the authenticated user.
 
         Args:
-            request (Request): The PUT request sent by the client containing the data for the account update.
+            request (Request): The PUT request sent by the client containing the data for
+            the account update.
             account_id (int): The primary key id of the account.
 
         Returns:
-            Response: A HTTP response containing the serialized data of the updated account or an error message.
+            Response: A HTTP response containing the serialized data of the updated account or
+            an error message.
         """
         data = {
             "account_name": request.data.get("account_name"),
@@ -66,10 +73,12 @@ class AccountApiView(APIView):
         Handles POST requests. Creates a new account associated with the authenticated user.
 
         Args:
-            request (Request): The POST request sent by the client containing the data for the new account.
+            request (Request): The POST request sent by the client containing the data for
+            the new account.
 
         Returns:
-            Response: A HTTP response containing the serialized data of the new account or an error message.
+            Response: A HTTP response containing the serialized data of the new account or
+            an error message.
         """
         data = {
             "user": request.user.id,
@@ -136,13 +145,15 @@ class TransactionApiView(APIView):
 
     def get(self, request):
         """
-        Handles GET requests. Returns a list of transactions associated with the authenticated user's accounts.
+        Handles GET requests. Returns a list of transactions associated with the authenticated
+        user's accounts.
 
         Args:
             request (Request): The GET request sent by the client.
 
         Returns:
-            Response: A HTTP response containing the serialized data of the transactions or an error message.
+            Response: A HTTP response containing the serialized data of the transactions or
+            an error message.
         """
         accounts = Account.objects.filter(user=request.user)
         transactions = Transaction.objects.filter(account__in=accounts)
@@ -152,16 +163,16 @@ class TransactionApiView(APIView):
     @transaction.atomic
     def put(self, request, transaction_id):
         """
-        Handles PUT requests. Updates an existing transaction associated with 
+        Handles PUT requests. Updates an existing transaction associated with
         the authenticated user.
 
         Args:
-            request (Request): The PUT request sent by the client containing the data for 
+            request (Request): The PUT request sent by the client containing the data for
             the transaction update.
             transaction_id (int): The primary key id of the transaction.
 
         Returns:
-            Response: A HTTP response containing the serialized data of the updated transaction 
+            Response: A HTTP response containing the serialized data of the updated transaction
             or an error message.
         """
         old_transaction = get_object_or_404(Transaction, pk=transaction_id)
@@ -187,10 +198,12 @@ class TransactionApiView(APIView):
         Handles POST requests. Creates a new transaction associated with the authenticated user.
 
         Args:
-            request (Request): The POST request sent by the client containing the data for the new transaction.
+            request (Request): The POST request sent by the client containing the data for
+            the new transaction.
 
         Returns:
-            Response: A HTTP response containing the serialized data of the created transaction or an error message.
+            Response: A HTTP response containing the serialized data of the created transaction or
+            an error message.
         """
         serializer = TransactionSerializer(data=request.data)
         if serializer.is_valid():

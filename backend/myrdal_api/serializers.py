@@ -12,14 +12,15 @@ class CustomUserCreateSerializer(UserCreateSerializer):
     """
     Serializer for creating CustomUser instances.
     """
+
     class Meta:
         model = CustomUser
         fields = [
-            'email',
-            'password',
-            'first_name',
-            'last_name',
-            'date_of_birth',
+            "email",
+            "password",
+            "first_name",
+            "last_name",
+            "date_of_birth",
         ]
 
     def validate_date_of_birth(self, value):
@@ -45,27 +46,40 @@ class CustomUserSerializer(UserSerializer):
     """
     Serializer for CustomUser instances.
     """
+
     class Meta:
         model = CustomUser
         fields = [
-            'email',
-            'first_name',
-            'last_name',
-            'date_of_birth',
+            "email",
+            "first_name",
+            "last_name",
+            "date_of_birth",
         ]
+
 
 class AccountSerializer(serializers.ModelSerializer):
     """
     Serializer for the Account model.
     """
+
     class Meta:
         model = Account
-        fields = ['id', 'user', 'account_name', 'current_balance']
+        fields = ["id", "user", "account_name", "current_balance"]
+
 
 class TransactionSerializer(serializers.ModelSerializer):
     """
     Serializer for the Transaction model.
     """
+
     class Meta:
         model = Transaction
-        fields = ['id', 'account', 'payee', 'date_time', 'amount', 'description', 'category']
+        fields = [
+            "id",
+            "account",
+            "payee",
+            "date_time",
+            "amount",
+            "description",
+            "category",
+        ]
