@@ -38,8 +38,8 @@ class Account(models.Model):
 
     """
 
-    user = models.ForeignKey(CustomUser, on_delete = models.CASCADE)
-    account_name = models.CharField(max_length=50)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    account_name = models.CharField(max_length=100)
     current_balance = models.DecimalField(max_digits=15, decimal_places=2, default=0.0)
 
     def __str__(self):
