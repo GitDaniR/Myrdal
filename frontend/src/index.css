@@ -5,7 +5,9 @@
 #root {
     min-height: 100vh;
     background-color: rgb(243 244 246);
-    font-family: Arial, Helvetica, sans-serif
+    font-family: Arial, Helvetica, sans-serif;
+    --caledon: #A3C9A8;
+    --hunter-green: #3D6654;
 }
 
 @layer components {
@@ -22,10 +24,21 @@
     }
 
     .form-btn {
-        @apply border-2 rounded-lg mx-auto my-1 px-12 py-1 bg-[#22c55e] hover:bg-[#15803d] delay-100 duration-300 ease-in-out text-white;
+        @apply border-2 rounded-lg mx-auto my-1 px-12 py-1 bg-[#22c55e] hover:bg-[#15803d] 
+        delay-100 duration-300 ease-in-out text-white;
     }
 
     .hyperlink {
         @apply text-sm text-center underline text-blue-600 hover:text-blue-800;
+    }
+
+    .navbar {
+        @apply w-36 h-screen fixed left-0 flex flex-col space-y-1 px-0.5 py-6 border-r-2 border-[var(--hunter-green)] 
+        bg-[var(--caledon)] text-black text-lg;
+    }
+
+    .navbar-item {
+        @apply flex flex-row items-center space-x-2 px-1 border-b-2 border-[var(--hunter-green)] 
+        hover:text-[#DAD4BE] hover:bg-[var(--hunter-green)];
     }
 }
