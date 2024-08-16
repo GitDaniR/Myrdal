@@ -1,9 +1,9 @@
-import './App.css'
 import { useState } from "react";
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import LoginForm from './components/LoginForm'
 import RegistrationForm from './components/RegistrationForm'
 import BasePage from './pages/BasePage'
+import NotFoundPage from './pages/NotFoundPage'
 import ToastList from './components/ToastList'
 import ToastContext from './contexts/ToastContext'
 
@@ -32,6 +32,7 @@ function App() {
     <>
       <Route index element={<BasePage><LoginForm/></BasePage>} />
       <Route path='/register' element={<BasePage><RegistrationForm/></BasePage>}/>
+      <Route path="*" element={<NotFoundPage/>} />
     </>
   ))
 
