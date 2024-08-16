@@ -1,11 +1,19 @@
 import { useState } from "react";
-import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
-import LoginForm from './components/LoginForm'
-import RegistrationForm from './components/RegistrationForm'
-import BasePage from './pages/BasePage'
-import NotFoundPage from './pages/NotFoundPage'
-import ToastList from './components/ToastList'
-import ToastContext from './contexts/ToastContext'
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
+
+// Components
+import LoginForm from './components/LoginForm';
+import RegistrationForm from './components/RegistrationForm';
+import ToastList from './components/ToastList';
+
+// Pages
+import BasePage from './pages/BasePage';
+import DashboardPage from "./pages/DashboardPage";
+import NotFoundPage from './pages/NotFoundPage';
+
+// Utils
+import ToastContext from './utils/ToastContext';
+import ProtectedRoutes from './utils/ProtectedRoutes';
 
 function App() {
   const [toasts, setToasts] = useState([]);
@@ -31,7 +39,10 @@ function App() {
   const router = createBrowserRouter(createRoutesFromElements(
     <>
       <Route index element={<BasePage><LoginForm/></BasePage>} />
-      <Route path='/register' element={<BasePage><RegistrationForm/></BasePage>}/>
+      <Route path="/register" element={<BasePage><RegistrationForm/></BasePage>}/>
+      <Route element={<ProtectedRoutes/>}>
+        <Route path="/dashboard" element={<DashboardPage/>}/>
+      </Route>
       <Route path="*" element={<NotFoundPage/>} />
     </>
   ))
