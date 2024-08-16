@@ -9,6 +9,10 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  checks: write
+  contents: write
+
 jobs:
   frontend_linting:
     name: Run frontend linting tools
@@ -76,8 +80,27 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Check for duplicate code
+      - name: Check frontend for duplicate code
         uses: platisd/duplicate-code-detection-tool@master
         with:
-          directories: "frontend/src/, backend/myrdal_api"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directories: "frontend/src/"
+          file_extensions: "jsx"
+          ignore_below: 10
+          fail_above: 70
+          warn_above: 15
+          header_message_start: "Frontend similarity scores"
+        if: github.event_name == 'pull_request'
+      
+      - name: Check backend for duplicate code
+        uses: platisd/duplicate-code-detection-tool@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directories: "backend/myrdal_api"
+          ignore_directories: "migrations"
+          file_extensions: "py"
+          ignore_below: 10
+          fail_above: 70
+          warn_above: 15
+          header_message_start: "Backend similarity scores"
         if: github.event_name == 'pull_request'
