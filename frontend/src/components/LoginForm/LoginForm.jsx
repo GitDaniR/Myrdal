@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
 import {Link, useNavigate} from 'react-router-dom'
-import ToastContext from "../../contexts/ToastContext";
+import ToastContext from "../../utils/ToastContext";
 import { useContext } from "react";
 
 
@@ -19,6 +19,7 @@ const LoginForm = () => {
             .post("/api/auth/jwt/create/", loginInfo)
             .then((response) => {
                 Cookies.set('access', response.data['access']);
+                axios.defaults.headers.common['Authorization'] = `JWT ${Cookies.get('access')}`;
                 showToast('success', "Login successful.");
                 navigate('/dashboard');
             })

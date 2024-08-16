@@ -1,6 +1,6 @@
 import axios from "axios";
 import {Link, useNavigate} from 'react-router-dom'
-import ToastContext from "../../contexts/ToastContext";
+import ToastContext from "../../utils/ToastContext";
 import { useContext } from "react";
 
 const RegistrationForm = () => {
