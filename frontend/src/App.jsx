@@ -1,5 +1,10 @@
+// External dependencies
 import { useState } from "react";
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
+
+// Utils
+import ToastContext from './utils/ToastContext';
+import ProtectedRoutes from './utils/ProtectedRoutes';
 
 // Components
 import LoginForm from './components/LoginForm';
@@ -10,10 +15,6 @@ import ToastList from './components/ToastList';
 import BasePage from './pages/BasePage';
 import DashboardPage from "./pages/DashboardPage";
 import NotFoundPage from './pages/NotFoundPage';
-
-// Utils
-import ToastContext from './utils/ToastContext';
-import ProtectedRoutes from './utils/ProtectedRoutes';
 
 function App() {
   const [toasts, setToasts] = useState([]);
