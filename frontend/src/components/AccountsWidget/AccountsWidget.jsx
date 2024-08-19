@@ -6,30 +6,34 @@ import { FaPencil, FaPlus, FaXmark } from "react-icons/fa6";
 // Utils
 import { AccountsContext } from '../../utils/AccountsContext';
 import ToastContext from "../../utils/ToastContext";
+import { TransactionsContext } from '../../utils/TransactionsContext';
 
 // Components
-import NewAccountForm from '../NewAccountForm';
-import EditAccountForm from '../EditAccountForm';
+import AccountForm from '../AccountForm';
 
 const AccountsWidget = () => {
-    const { accounts, loading, error, refreshAccounts  } = useContext(AccountsContext);
+    const { accounts, setAccounts, loadingAccounts, errorAccounts } = useContext(AccountsContext);
+    const { transactions, setTransactions } = useContext(TransactionsContext);
     const showToast = useContext(ToastContext);
 
-    const [ isAddVisible, setIsAddVisible] = useState(false);
-    const [ isEditVisible, setIsEditVisible] = useState(false);
+    const [ isAddVisible, setIsAddVisible ] = useState(false);
+    const [ isEditVisible, setIsEditVisible ] = useState(false);
     const [ toEdit, setToEdit ] = useState(null);
 
     const handleAdd = () => {
         return async () => {
-            if (isEditVisible) setIsEditVisible(false);
+            if (isEditVisible) {
+                setIsEditVisible(false);
+                setToEdit(null);
+            }
             setIsAddVisible(true);
         };
     };
 
-    const handleEdit = (id, account_name) => {
+    const handleEdit = (account) => {
         return async () => {
             if (isAddVisible) setIsAddVisible(false);
-            setToEdit({ id: id, account_name: account_name });
+            setToEdit({ id: account.id, account_name: account.account_name });
             setIsEditVisible(true);
         }
     };
@@ -39,22 +43,24 @@ const AccountsWidget = () => {
             if (isAddVisible || isEditVisible) return;
             try {
                 await axios.delete(`/api/accounts/${id}/`);
-                refreshAccounts();
+                setAccounts(accounts.filter(account => account.id != id));
+                setTransactions(transactions.filter(transaction => transaction.account != id));
+                setToEdit(null);
             } catch(err) {
                 showToast("error", err.message);
             }
         }
     };
 
-    if (loading) {
+    if (loadingAccounts) {
         return <div>Loading...</div>;
     }
 
-    if (error) {
-        return <div>Error: {error}</div>;
+    if (errorAccounts) {
+        return <div>Error: {errorAccounts}</div>;
     }
 
-    const totalBalance = accounts.reduce((acc, account) => acc + account.current_balance, 0);
+    const totalBalance = accounts.reduce((acc, account) => acc + Number.parseFloat(account.current_balance), 0);
 
     return (
         <>
@@ -65,23 +71,23 @@ const AccountsWidget = () => {
             </h1>
             <h2 className="text-xl">
                 Accounts
-                <button className="float-right my-1" onClick={handleAdd()} title="Add Account"><FaPlus/></button>
+                <button className="float-right my-1" onClick={handleAdd()} title="Add account"><FaPlus/></button>
             </h2>
             <table className="w-full table-fixed">
                 <tbody>
                     {accounts.map(account => (
                         <tr key={account.id}>
                             <td className="w-3/5 truncate hover:overflow-visible hover:text-wrap">{account.account_name}</td> 
-                            <td><button onClick={handleEdit(account.id, account.account_name)} title="Edit"><FaPencil/></button> </td>
+                            <td><button onClick={handleEdit(account)} title="Edit"><FaPencil/></button> </td>
                             <td><button onClick={handleDelete(account.id)} title="Delete"><FaXmark/></button> </td>
-                            <td className="text-right">${Number.parseFloat(account.current_balance).toFixed(2)}</td>
+                            <td className="w-1/5 text-right">${Number.parseFloat(account.current_balance).toFixed(2)}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-        {isAddVisible && (<NewAccountForm setIsAddVisible={setIsAddVisible} refreshAccounts={refreshAccounts}/>)}
-        {isEditVisible && (<EditAccountForm setIsEditVisible={setIsEditVisible} refreshAccounts={refreshAccounts} toEdit={toEdit}/>)}
+        {isAddVisible && (<AccountForm setIsFormVisible={setIsAddVisible} toEdit={toEdit} setToEdit={setToEdit}/>)}
+        {isEditVisible && (<AccountForm setIsFormVisible={setIsEditVisible} toEdit={toEdit} setToEdit={setToEdit}/>)}
         </>
     );
 };
