@@ -5,6 +5,7 @@ This module provides API views for theMyrdal API.
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 
+from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -15,100 +16,21 @@ from myrdal_api.permissions import IsOwner
 from myrdal_api.serializers import AccountSerializer, TransactionSerializer
 
 
-class AccountApiView(APIView):
+class AccountViewSet(viewsets.ModelViewSet):
     """
-    API View for the Account model. It handles GET, PUT, POST, and DELETE requests.
-
-    Inherits:
-        APIView: Django REST framework's APIView class.
-
-    Note:
-        Requires user authentication.
+    A viewset that provides the standard actions for listing, retrieving, creating,
+    updating, and deleting accounts.
     """
-
+    serializer_class = AccountSerializer
     authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated, IsOwner]
+    permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request):
-        """
-        Handles GET requests. Returns a list of all accounts associated with the authenticated user.
-
-        Args:
-            request (Request): The GET request sent by the client.
-
-        Returns:
-            Response: A HTTP response containing the serialized data of the accounts or
-            an error message.
-        """
-        accounts = Account.objects.filter(user=request.user.id)
-        serializer = AccountSerializer(accounts, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def put(self, request, account_id):
-        """
-        Handles PUT requests. Updates an existing account associated with the authenticated user.
-
-        Args:
-            request (Request): The PUT request sent by the client containing the data for
-            the account update.
-            account_id (int): The primary key id of the account.
-
-        Returns:
-            Response: A HTTP response containing the serialized data of the updated account or
-            an error message.
-        """
-        data = {
-            "account_name": request.data.get("account_name"),
-        }
-        account = get_object_or_404(Account, pk=account_id)
-        self.check_object_permissions(request, account)
-        serializer = AccountSerializer(account, data=data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def post(self, request):
-        """
-        Handles POST requests. Creates a new account associated with the authenticated user.
-
-        Args:
-            request (Request): The POST request sent by the client containing the data for
-            the new account.
-
-        Returns:
-            Response: A HTTP response containing the serialized data of the new account or
-            an error message.
-        """
-        data = {
-            "user": request.user.id,
-            "account_name": request.data.get("account_name"),
-        }
-        serializer = AccountSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, account_id):
-        """
-        Handles DELETE requests. Deletes an existing account associated with the authenticated user.
-
-        Args:
-            request (Request): The DELETE request sent by the client.
-            account_id (int): The primary key id of the account.
-
-        Returns:
-            Response: A HTTP response with a success message or an error message.
-        """
-        account = get_object_or_404(Account, pk=account_id)
-        self.check_object_permissions(request, account)
-        account.delete()
-        return Response(
-            {"detail": "Account deleted"}, status=status.HTTP_204_NO_CONTENT
-        )
-
+    def get_queryset(self):
+        return Account.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        # Automatically associate the account with the authenticated user on creation
+        serializer.save(user=self.request.user)
 
 class TransactionApiView(APIView):
     """

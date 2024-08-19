@@ -7,12 +7,15 @@ URL patterns for the Myrdal API.
 - `transaction_detail`: Retrieves, updates, or deletes a specific transaction.
 """
 
-from django.urls import path
-from myrdal_api.views import AccountApiView, TransactionApiView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from myrdal_api.views import AccountViewSet, TransactionApiView
+
+router = DefaultRouter()
+router.register(r'accounts', AccountViewSet, basename='account')
 
 urlpatterns = [
-    path("accounts/", AccountApiView.as_view(), name="account_list_create"),
-    path("accounts/<int:account_id>/", AccountApiView.as_view(), name="account_detail"),
+    path('', include(router.urls)),
     path("transactions/", TransactionApiView.as_view(), name="transaction_list_create"),
     path(
         "transactions/<int:transaction_id>/",
