@@ -1,7 +1,7 @@
 // External dependencies
 import axios from 'axios'
 import PropTypes from 'prop-types';
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 // Utils
 import { AccountsContext } from "../../utils/AccountsContext";
@@ -35,6 +35,18 @@ const TransactionForm = ({ setIsFormVisible, toEdit, setToEdit }) => {
         description: toEdit?.description,
         category: toEdit?.category || "unspecified",
     });
+
+    useEffect(() => {
+        setFormData({
+            id: toEdit?.id || null,
+            account: toEdit?.account || (accounts.length > 0 ? accounts[0].id : undefined),
+            payee: toEdit?.payee,
+            date_time: toEdit?.date_time,
+            amount: toEdit?.amount,
+            description: toEdit?.description,
+            category: toEdit?.category || "unspecified",
+        });
+    }, [accounts, toEdit]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
