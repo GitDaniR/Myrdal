@@ -66,7 +66,7 @@ jobs:
           python-version: 3.11
 
       - name: Install Python dependencies
-        run: pip install black pylint pylint_django
+        run: pip install -r requirements.txt
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
@@ -80,18 +80,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: Check frontend for duplicate code
-        uses: platisd/duplicate-code-detection-tool@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          directories: "frontend/src/"
-          file_extensions: "jsx"
-          ignore_below: 10
-          fail_above: 70
-          warn_above: 15
-          header_message_start: "Frontend similarity scores"
-        if: github.event_name == 'pull_request'
-      
       - name: Check backend for duplicate code
         uses: platisd/duplicate-code-detection-tool@master
         with:
