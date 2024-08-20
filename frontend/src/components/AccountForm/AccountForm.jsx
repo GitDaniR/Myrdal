@@ -56,19 +56,19 @@ const AccountForm = ({ setIsFormVisible, toEdit, setToEdit }) => {
     const closeForm = (e) => {e.preventDefault(); setIsFormVisible(false)};
 
     return (
-        <div className="border w-1/3 h-auto p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-lg bg-slate-200">
-            <form className="relative h-full block align-middle" onSubmit={getSubmitFunction()}>
-                <button onClick={closeForm} className="absolute top-0 right-0">Close</button>
+        <div className="data-form-container">
+            <form className="data-form" onSubmit={getSubmitFunction()}>
+                <button onClick={closeForm} className="data-form-btn absolute top-0 right-0">Close</button>
                 <div className="pt-6"></div>
                 {toEdit != null && (
                     <>
                         <p className="block">Previous account name</p>
-                        <p className="block text-blue-600">{toEdit.account_name}</p>
+                        <b className="block text-[#224287]">{toEdit.account_name}</b>
                     </>
                 )}
-                <label htmlFor="accountName" className="block">New account name</label>
-                <input id="accountName" name="account_name" required className="block w-full"></input>
-                <button type="submit" className="block mx-auto mt-2">Save</button>
+                <label htmlFor="accountName">New account name</label>
+                <input id="accountName" name="account_name" required></input>
+                <button type="submit" className="data-form-btn block mx-auto mt-2">Save</button>
             </form>
         </div>
     );

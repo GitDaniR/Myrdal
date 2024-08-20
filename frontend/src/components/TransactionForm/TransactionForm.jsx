@@ -110,37 +110,35 @@ const TransactionForm = ({ setIsFormVisible, toEdit, setToEdit }) => {
     const closeForm = (e) => {e.preventDefault(); setIsFormVisible(false)};
 
     return (
-        <div className="border w-1/3 h-3/5 p-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-lg bg-slate-200">
-            <form className="relative h-full block align-middle" onSubmit={getSubmitFunction()}>
-                <button onClick={closeForm} className="absolute top-0 right-0">Close</button>
-                <label htmlFor="account" className="block pt-6">Account</label>
-                <select id="account" name="account" required className="block w-full" 
-                        value={formData.account}
-                        onChange={handleChange}>
+        <div className="data-form-container">
+            <form className="data-form" onSubmit={getSubmitFunction()}>
+                <button onClick={closeForm} className="data-form-btn absolute top-0 right-0">Close</button>
+                <label htmlFor="account" className="pt-6">Account</label>
+                <select id="account" name="account" required value={formData.account} onChange={handleChange}>
                     {accounts.map((account) => (
                         <option key={account.id} value={account.id}>{account.account_name}</option>
                     ))}
                 </select>
-                <label htmlFor="payee" className="block">Payee</label>
-                <input id="payee" name="payee" required className="block w-full" value={formData.payee} onChange={handleChange}></input>
-                <label htmlFor="date_time" className="block">Date and time</label>
-                <input id="date_time" name="date_time" required className="block w-full" type="datetime-local" 
+                <label htmlFor="payee">Payee</label>
+                <input id="payee" name="payee" required value={formData.payee} onChange={handleChange}></input>
+                <label htmlFor="date_time">Date and time</label>
+                <input id="date_time" name="date_time" required type="datetime-local" 
                         value={formData.date_time?.slice(0, 16)} onChange={handleChange}></input>
-                <label htmlFor="amount" className="block">Amount</label>
-                <input id="amount" name="amount" required className="block w-full" type="number" step=".01" 
+                <label htmlFor="amount">Amount</label>
+                <input id="amount" name="amount" required type="number" step=".01" 
                         value={formData.amount} onChange={handleChange}></input>
-                <label htmlFor="description" className="block">Description</label>
-                <input id="description" name="description" required className="block w-full" type="text" 
+                <label htmlFor="description">Description</label>
+                <input id="description" name="description" required type="text" 
                         value={formData.description} onChange={handleChange}></input>
-                <label htmlFor="category" className="block">Category</label>
-                <select id="category" name="category" className="block w-full" value={formData.category} onChange={handleChange}>
+                <label htmlFor="category">Category</label>
+                <select id="category" name="category" value={formData.category} onChange={handleChange}>
                     {Object.entries(CATEGORY_CHOICES).map(([key, value]) => (
                         <option key={key} value={key}>
                             {value}
                         </option>
                     ))}
                 </select>
-                <button type="submit" className="block mx-auto mt-2">Save</button>
+                <button type="submit" className="data-form-btn block mx-auto mt-2">Save</button>
             </form>
         </div>
     );

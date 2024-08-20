@@ -34,17 +34,15 @@ const TransactionsTable = () => {
 
     const handleAdd = () => {
         return async () => {
-            if (isEditVisible) {
-                setIsEditVisible(false);
-                setToEdit(null);
-            }
+            setIsEditVisible(false);
+            setToEdit(null);
             setIsAddVisible(true);
         };
     };
 
     const handleEdit = (transaction) => {
         return async () => {
-            if (isAddVisible) setIsAddVisible(false);
+            setIsAddVisible(false);
             setToEdit(transaction);
             setIsEditVisible(true);
         };
@@ -75,33 +73,37 @@ const TransactionsTable = () => {
 
     return (
         <>
-            <div className="w-full my-5 p-2 border-2 border-black">
+            <div className="transactions-container">
                 <h1 className="text-xl">
-                    Transactions
-                    <button className="mr-24 float-right" onClick={handleAdd()} title="Add transaction"><FaPlus/></button>
+                    <b>Transaction History</b>
+                    <button className="mr-8 float-right" onClick={handleAdd()} title="Add transaction"><FaPlus className="green-icon"/></button>
                 </h1>
-                <table className="w-full table-auto">
+                <table className="data-table mt-2">
                     <thead>
-                        <tr>
-                            <td>Account</td>
-                            <td>Payee</td>
-                            <td>Category</td>
-                            <td>Date and time</td>
+                        <tr className="text-lg">
+                            <td className="w-1/12">Date</td>
+                            <td className="w-3/12" >Account</td>
+                            <td className="w-3/12">Payee</td>
+                            <td className="w-2/12">Category</td>
+                            <td className="w-2/12">Amount</td>
                             <td></td>
                             <td></td>
-                            <td>Amount</td>
                         </tr>
                     </thead>
                     <tbody>
                         {transactions.map((transaction) => (
-                            <tr key={transaction.id}>
-                                <td>{accounts.find(account => account.id == transaction.account).account_name}</td>
-                                <td>{transaction.payee}</td>
+                            <tr key={transaction.id} className="even:bg-white odd:bg-slate-50">
+                                <td>{transaction.date_time.slice(0, 10)}</td>
+                                <td className="truncate hover:overflow-visible hover:text-wrap">
+                                    {accounts.find(account => account.id == transaction.account).account_name}
+                                </td>
+                                <td className="truncate hover:overflow-visible hover:text-wrap">
+                                    {transaction.payee}
+                                </td>
                                 <td>{CATEGORY_CHOICES[transaction.category]}</td>
-                                <td>{transaction.date_time}</td>
-                                <td><button title="Edit" onClick={handleEdit(transaction)}><FaPencil/></button></td>
-                                <td><button onClick={handleDelete(transaction)} title="Delete"><FaXmark/></button></td>
                                 <td>${transaction.amount}</td>
+                                <td><button title="Edit" onClick={handleEdit(transaction)}><FaPencil className="yellow-icon"/></button></td>
+                                <td><button onClick={handleDelete(transaction)} title="Delete"><FaXmark className="red-icon"/></button></td>
                             </tr>
                         ))}
                     </tbody>

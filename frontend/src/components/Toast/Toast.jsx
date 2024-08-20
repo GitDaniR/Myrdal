@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 const Toast = ({ type, message, closeToast }) => {
     const icons = {
-        'success': <FaCircleCheck className="fill-green-500 mx-1 my-auto" data-testid="success-icon"/>,
-        'info': <FaCircleExclamation className="fill-blue-500 mx-1 my-auto" data-testid="info-icon"/>,
-        'error': <FaCircleXmark className="fill-red-500 mx-1 my-auto" data-testid="error-icon"/>,
+        'success': <FaCircleCheck className="green-icon mx-1 my-auto" data-testid="success-icon"/>,
+        'info': <FaCircleExclamation className="blue-icon mx-1 my-auto" data-testid="info-icon"/>,
+        'error': <FaCircleXmark className="red-icon mx-1 my-auto" data-testid="error-icon"/>,
     }
 
     const toastIcon = icons[type] || null;
