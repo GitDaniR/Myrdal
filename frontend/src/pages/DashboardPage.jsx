@@ -4,7 +4,7 @@ import { TransactionsProvider } from "../utils/TransactionsContext";
 
 // Components
 import Navbar from "../components/Navbar";
-import AccountsWidget from "../components/AccountsWidget";
+import AccountsTable from "../components/AccountsTable";
 import TransactionsTable from "../components/TransactionsTable";
 
 const DashboardPage = () => {
@@ -14,7 +14,7 @@ const DashboardPage = () => {
             <AccountsProvider>
                 <TransactionsProvider>
                     <div className="h-screen ml-36 p-4">
-                        <AccountsWidget/>
+                        <AccountsTable/>
                         <TransactionsTable/>
                     </div>
                 </TransactionsProvider>

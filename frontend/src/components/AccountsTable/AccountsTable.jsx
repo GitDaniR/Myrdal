@@ -11,7 +11,7 @@ import { TransactionsContext } from '../../utils/TransactionsContext';
 // Components
 import AccountForm from '../AccountForm';
 
-const AccountsWidget = () => {
+const AccountsTable = () => {
     const { accounts, setAccounts, loadingAccounts, errorAccounts } = useContext(AccountsContext);
     const { transactions, setTransactions } = useContext(TransactionsContext);
     const showToast = useContext(ToastContext);
@@ -92,4 +92,4 @@ const AccountsWidget = () => {
     );
 };
 
-export default AccountsWidget
+export default AccountsTable
