@@ -34,6 +34,10 @@ const TransactionsTable = () => {
 
     const handleAdd = () => {
         return async () => {
+            if (accounts.length == 0) {
+                showToast('info', "Please add an account first.");
+                return;
+            }
             setIsEditVisible(false);
             setToEdit(null);
             setIsAddVisible(true);
