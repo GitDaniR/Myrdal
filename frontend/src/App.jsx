@@ -1,3 +1,10 @@
+////////////////////////////////////////////////////////////////
+//           CONFIGURE AXIOS FOR ALL FUTURE REQUESTS          //
+// Set the base URL globally for all axios requests           //
+import axios from 'axios';
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
+////////////////////////////////////////////////////////////////
+
 // External dependencies
 import { useState } from "react";
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
@@ -49,7 +56,7 @@ function App() {
       </Route>
       <Route path="*" element={<NotFoundPage/>} />
     </Route>
-  ))
+  ), {basename: import.meta.env.BASE_URL})
 
   return (
       <ToastContext.Provider value={showToast}>

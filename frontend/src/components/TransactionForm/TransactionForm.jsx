@@ -60,7 +60,7 @@ const TransactionForm = ({ setIsFormVisible, toEdit, setToEdit }) => {
         e.preventDefault();
         try {
             const transaction_response = await axios.post("/api/transactions/", formData);
-            const account_response = await axios.get(`/api/accounts/${transaction_response.data.account}`);
+            const account_response = await axios.get(`/api/accounts/${transaction_response.data.account}/`);
 
             setAccounts(accounts.map(account => (account.id == account_response.data.id) ? account_response.data : account));
             setTransactions([...transactions, transaction_response.data]);

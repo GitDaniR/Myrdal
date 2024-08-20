@@ -6,6 +6,8 @@ on:
     workflows: [Static analysis]
     types:
       - completed
+  
+  workflow_dispatch:
 
 jobs:
   frontend_tests:
@@ -48,7 +50,7 @@ jobs:
     defaults:
       run:
         working-directory: 'backend'
-    
+
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v4

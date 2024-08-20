@@ -17,7 +17,7 @@ const AccountForm = ({ setIsFormVisible, toEdit, setToEdit }) => {
             const formData = new FormData(e.target);
             const account = Object.fromEntries(formData.entries());
 
-            const response = await axios.post("api/accounts/", account);
+            const response = await axios.post("/api/accounts/", account);
 
             setAccounts([...accounts, response.data]);
             setIsFormVisible(false);
@@ -38,7 +38,7 @@ const AccountForm = ({ setIsFormVisible, toEdit, setToEdit }) => {
                 return;
             }
 
-            const response = await axios.put(`api/accounts/${toEdit.id}/`, new_account);
+            const response = await axios.put(`/api/accounts/${toEdit.id}/`, new_account);
 
             setAccounts(accounts.map(account => (account.id == response.data.id) ? response.data : account));
             setIsFormVisible(false);
