@@ -12,10 +12,10 @@ from rest_framework.routers import DefaultRouter
 from myrdal_api.views import AccountViewSet, TransactionApiView
 
 router = DefaultRouter()
-router.register(r'accounts', AccountViewSet, basename='account')
+router.register(r"accounts", AccountViewSet, basename="account")
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
     path("transactions/", TransactionApiView.as_view(), name="transaction_list_create"),
     path(
         "transactions/<int:transaction_id>/",

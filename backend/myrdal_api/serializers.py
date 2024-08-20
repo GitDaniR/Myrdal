@@ -65,7 +65,7 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ["id", "user", "account_name", "current_balance"]
-        read_only_fields = ['user']  
+        read_only_fields = ["user"]
 
 
 class TransactionSerializer(serializers.ModelSerializer):
