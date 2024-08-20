@@ -15,6 +15,7 @@ import ToastList from './components/ToastList';
 import BasePage from './pages/BasePage';
 import DashboardPage from "./pages/DashboardPage";
 import NotFoundPage from './pages/NotFoundPage';
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   const [toasts, setToasts] = useState([]);
@@ -43,6 +44,7 @@ function App() {
       <Route path="/register" element={<BasePage><RegistrationForm/></BasePage>}/>
       <Route element={<ProtectedRoutes/>}>
         <Route path="/dashboard" element={<DashboardPage/>}/>
+        <Route path="/settings" element={<SettingsPage/>}/>
       </Route>
       <Route path="*" element={<NotFoundPage/>} />
     </>
