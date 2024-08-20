@@ -21,16 +21,18 @@ class AccountViewSet(viewsets.ModelViewSet):
     A viewset that provides the standard actions for listing, retrieving, creating,
     updating, and deleting accounts.
     """
+
     serializer_class = AccountSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Account.objects.filter(user=self.request.user)
-    
+
     def perform_create(self, serializer):
         # Automatically associate the account with the authenticated user on creation
         serializer.save(user=self.request.user)
+
 
 class TransactionApiView(APIView):
     """
