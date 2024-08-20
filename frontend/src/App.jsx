@@ -50,8 +50,8 @@ function App() {
 
   return (
       <ToastContext.Provider value={showToast}>
-      <RouterProvider router={router} />
-      <ToastList data={toasts} removeToast={removeToast}/>
+        <RouterProvider router={router} />
+        <ToastList data={toasts} removeToast={removeToast}/>
       </ToastContext.Provider>
   );
 }

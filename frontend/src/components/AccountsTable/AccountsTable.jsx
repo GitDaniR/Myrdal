@@ -22,17 +22,15 @@ const AccountsTable = () => {
 
     const handleAdd = () => {
         return async () => {
-            if (isEditVisible) {
-                setIsEditVisible(false);
-                setToEdit(null);
-            }
+            setIsEditVisible(false);
+            setToEdit(null);
             setIsAddVisible(true);
         };
     };
 
     const handleEdit = (account) => {
         return async () => {
-            if (isAddVisible) setIsAddVisible(false);
+            setIsAddVisible(false);
             setToEdit({ id: account.id, account_name: account.account_name });
             setIsEditVisible(true);
         }
@@ -64,23 +62,25 @@ const AccountsTable = () => {
 
     return (
         <>
-        <div className="w-1/3 h-1/3 p-1 space-y-5 border-2 border-black overflow-y-scroll">
+        <div className="accounts-container">
             <h1 className="text-2xl">
-                Total Balance
-                <span className="float-right">${Number.parseFloat(totalBalance).toFixed(2)}</span>
+                <b>
+                    Total Balance
+                    <span className="float-right">${Number.parseFloat(totalBalance).toFixed(2)}</span>
+                </b>
             </h1>
             <h2 className="text-xl">
                 Accounts
-                <button className="float-right my-1" onClick={handleAdd()} title="Add account"><FaPlus/></button>
+                <button className="float-right my-1" onClick={handleAdd()} title="Add account"><FaPlus className="green-icon"/></button>
             </h2>
-            <table className="w-full table-fixed">
+            <table className="data-table">
                 <tbody>
                     {accounts.map(account => (
-                        <tr key={account.id}>
-                            <td className="w-3/5 truncate hover:overflow-visible hover:text-wrap">{account.account_name}</td> 
-                            <td><button onClick={handleEdit(account)} title="Edit"><FaPencil/></button> </td>
-                            <td><button onClick={handleDelete(account.id)} title="Delete"><FaXmark/></button> </td>
-                            <td className="w-1/5 text-right">${Number.parseFloat(account.current_balance).toFixed(2)}</td>
+                        <tr key={account.id} className="even:bg-[var(--dun)] odd: bg-[var(--bone-light)]">
+                            <td className="w-7/12 truncate hover:overflow-visible hover:text-wrap">{account.account_name}</td> 
+                            <td className="px-5"><button onClick={handleEdit(account)} title="Edit"><FaPencil className="yellow-icon"/></button> </td>
+                            <td className="px-8"><button onClick={handleDelete(account.id)} title="Delete"><FaXmark className="red-icon"/></button> </td>
+                            <td className="w-3/12 text-right">${Number.parseFloat(account.current_balance).toFixed(2)}</td>
                         </tr>
                     ))}
                 </tbody>
