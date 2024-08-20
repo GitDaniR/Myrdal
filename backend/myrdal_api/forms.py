@@ -14,9 +14,9 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = (
             "email",
-            'date_of_birth',
-            'first_name',
-            'last_name',
+            "date_of_birth",
+            "first_name",
+            "last_name",
         )
 
 
@@ -29,7 +29,7 @@ class CustomUserChangeForm(UserChangeForm):
         model = CustomUser
         fields = (
             "email",
-            'first_name',
-            'last_name',
-            'date_of_birth',
+            "first_name",
+            "last_name",
+            "date_of_birth",
         )

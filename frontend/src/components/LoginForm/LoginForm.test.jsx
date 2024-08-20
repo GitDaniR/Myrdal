@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ToastContext from '../../contexts/ToastContext'
+import ToastContext from '../../utils/ToastContext'
 import { MemoryRouter } from 'react-router-dom';
 import LoginForm from './LoginForm';
 

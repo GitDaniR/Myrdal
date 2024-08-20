@@ -3,27 +3,29 @@
 import datetime
 from djoser.serializers import ValidationError
 from djoser.serializers import UserSerializer, UserCreateSerializer
+from rest_framework import serializers
 
-from myrdal_api.models import CustomUser
+from myrdal_api.models import CustomUser, Account, Transaction
 
 
 class CustomUserCreateSerializer(UserCreateSerializer):
-    """The serializer for creating CustomUser objects."""
+    """
+    Serializer for creating CustomUser instances.
+    """
 
     class Meta:
-        """Define underlying class and required fields."""
-
         model = CustomUser
         fields = [
-            'email',
-            'password',
-            'first_name',
-            'last_name',
-            'date_of_birth',
+            "email",
+            "password",
+            "first_name",
+            "last_name",
+            "date_of_birth",
         ]
 
     def validate_date_of_birth(self, value):
-        """Validator which prevents users from setting a date of birth
+        """
+        Validator which prevents users from setting a date of birth
         which is in the future.
 
         Args:
@@ -41,15 +43,44 @@ class CustomUserCreateSerializer(UserCreateSerializer):
 
 
 class CustomUserSerializer(UserSerializer):
-    """The class for serializing CustomUser objects."""
+    """
+    Serializer for CustomUser instances.
+    """
 
     class Meta:
-        """Define underlying class and required fields."""
-
         model = CustomUser
         fields = [
-            'email',
-            'first_name',
-            'last_name',
-            'date_of_birth',
+            "email",
+            "first_name",
+            "last_name",
+            "date_of_birth",
+        ]
+
+
+class AccountSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Account model.
+    """
+
+    class Meta:
+        model = Account
+        fields = ["id", "user", "account_name", "current_balance"]
+        read_only_fields = ["user"]
+
+
+class TransactionSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Transaction model.
+    """
+
+    class Meta:
+        model = Transaction
+        fields = [
+            "id",
+            "account",
+            "payee",
+            "date_time",
+            "amount",
+            "description",
+            "category",
         ]

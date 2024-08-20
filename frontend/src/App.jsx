@@ -1,11 +1,22 @@
-import './App.css'
+// External dependencies
 import { useState } from "react";
-import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
-import LoginForm from './components/LoginForm'
-import RegistrationForm from './components/RegistrationForm'
-import BasePage from './pages/BasePage'
-import ToastList from './components/ToastList'
-import ToastContext from './contexts/ToastContext'
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
+
+// Utils
+import ToastContext from './utils/ToastContext';
+import ProtectedRoutes from './utils/ProtectedRoutes';
+
+// Components
+import LoginForm from './components/LoginForm';
+import RegistrationForm from './components/RegistrationForm';
+import ToastList from './components/ToastList';
+
+// Pages
+import BasePage from './pages/BasePage';
+import DashboardPage from "./pages/DashboardPage";
+import NotFoundPage from './pages/NotFoundPage';
+import SettingsPage from "./pages/SettingsPage";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   const [toasts, setToasts] = useState([]);
@@ -29,16 +40,21 @@ function App() {
   }
 
   const router = createBrowserRouter(createRoutesFromElements(
-    <>
+    <Route errorElement={<ErrorPage/>}>
       <Route index element={<BasePage><LoginForm/></BasePage>} />
-      <Route path='/register' element={<BasePage><RegistrationForm/></BasePage>}/>
-    </>
+      <Route path="/register" element={<BasePage><RegistrationForm/></BasePage>}/>
+      <Route element={<ProtectedRoutes/>}>
+        <Route path="/dashboard" element={<DashboardPage/>}/>
+        <Route path="/settings" element={<SettingsPage/>}/>
+      </Route>
+      <Route path="*" element={<NotFoundPage/>} />
+    </Route>
   ))
 
   return (
       <ToastContext.Provider value={showToast}>
-      <RouterProvider router={router} />
-      <ToastList data={toasts} removeToast={removeToast}/>
+        <RouterProvider router={router} />
+        <ToastList data={toasts} removeToast={removeToast}/>
       </ToastContext.Provider>
   );
 }

@@ -17,9 +17,9 @@ python manage.py runserver
 python manage.py runserver_plus --cert-file cert.pem --key-file key.pem
 
 # Linting
-black . --check -S --target-version py311
-pylint backend
-pylint myrdal_api
+black . --check --target-version py311
+pylint backend --load-plugins=pylint_django --django-settings-module=backend.settings --ignore=tests,migrations
+pylint myrdal_api --load-plugins=pylint_django --django-settings-module=backend.settings --ignore=tests,migrations
 
 # Testing
 coverage run --branch manage.py test
