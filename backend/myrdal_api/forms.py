@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from myrdal_api.models import CustomUser
 
 
-class CustomUserCreationForm(UserCreationForm):
+class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ancestors
     """From for creating a user."""
 
     class Meta:
@@ -20,7 +20,7 @@ class CustomUserCreationForm(UserCreationForm):
         )
 
 
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(UserChangeForm):  # pylint: disable=too-many-ancestors
     """From for editing a user."""
 
     class Meta:
