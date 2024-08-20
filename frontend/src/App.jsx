@@ -16,6 +16,7 @@ import BasePage from './pages/BasePage';
 import DashboardPage from "./pages/DashboardPage";
 import NotFoundPage from './pages/NotFoundPage';
 import SettingsPage from "./pages/SettingsPage";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   const [toasts, setToasts] = useState([]);
@@ -39,7 +40,7 @@ function App() {
   }
 
   const router = createBrowserRouter(createRoutesFromElements(
-    <>
+    <Route errorElement={<ErrorPage/>}>
       <Route index element={<BasePage><LoginForm/></BasePage>} />
       <Route path="/register" element={<BasePage><RegistrationForm/></BasePage>}/>
       <Route element={<ProtectedRoutes/>}>
@@ -47,7 +48,7 @@ function App() {
         <Route path="/settings" element={<SettingsPage/>}/>
       </Route>
       <Route path="*" element={<NotFoundPage/>} />
-    </>
+    </Route>
   ))
 
   return (
