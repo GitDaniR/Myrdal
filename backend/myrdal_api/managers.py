@@ -10,7 +10,7 @@ class CustomUserManager(BaseUserManager):
     for authentication instead of usernames.
     """
 
-    def create_user(
+    def create_user(  # pylint: disable=too-many-arguments
         self, email, password, first_name, last_name, date_of_birth, **extra_fields
     ):
         """
@@ -31,7 +31,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(
+    def create_superuser(  # pylint: disable=too-many-arguments
         self, email, password, first_name, last_name, date_of_birth, **extra_fields
     ):
         """

@@ -16,7 +16,7 @@ from myrdal_api.permissions import IsOwner
 from myrdal_api.serializers import AccountSerializer, TransactionSerializer
 
 
-class AccountViewSet(viewsets.ModelViewSet):
+class AccountViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     """
     A viewset that provides the standard actions for listing, retrieving, creating,
     updating, and deleting accounts.
