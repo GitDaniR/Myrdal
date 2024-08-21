@@ -23,7 +23,8 @@ CSRF_TRUSTED_ORIGINS = ["https://" + os.environ.get("WEBSITE_HOSTNAME")]
 APPEND_SLASH = True
 
 # Frontend
-CORS_ORIGIN_WHITELIST = ["https://gitdanir.github.io/Myrdal"]
+CORS_ALLOWED_ORIGINS = ["https://gitdanir.github.io/Myrdal"]
+CORS_ORIGIN_WHITELIST = []
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
