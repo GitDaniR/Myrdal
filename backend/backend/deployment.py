@@ -21,12 +21,34 @@ APPEND_SLASH = True
 # Frontend
 CORS_ALLOWED_ORIGINS = ["https://gitdanir.github.io/Myrdal"]
 
+# pylint: disable=duplicate-code
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+]
+# pylint: enable=duplicate-code
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 
 # Database configuration
 CONNECTION = os.environ["AZURE_POSTGRESQL_CONNECTIONSTRING"]
@@ -43,3 +65,5 @@ DATABASES = {
         "PASSWORD": CONNECTION_STR["password"],
     }
 }
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
