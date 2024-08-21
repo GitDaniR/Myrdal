@@ -3,6 +3,8 @@ name: Deploy frontend
 
 on:
   # Triggers the workflow after static analysis is completed.
+  push:
+    branches: ['main']
   workflow_run:
     workflows: [Test]
     types:
