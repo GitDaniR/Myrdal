@@ -3,10 +3,8 @@ name: Deploy frontend
 
 on:
   # Triggers the workflow after static analysis is completed.
-  workflow_run:
-    workflows: [Test]
-    types:
-      - completed
+  push:
+    branches: ['main']
 
   workflow_dispatch:
 
@@ -37,10 +35,10 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
