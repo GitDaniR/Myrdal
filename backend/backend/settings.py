@@ -122,12 +122,11 @@ CSRF_COOKIE_SECURE = True
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if 'test' in sys.argv:
-    print("AAAAAAAAAAAAAAAA\n")
+if "test" in sys.argv:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': ':memory:',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
         }
     }
 else:
