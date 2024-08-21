@@ -12,18 +12,18 @@ from .settings import BASE_DIR
 load_dotenv()
 
 # Secret key
-SECRET_KEY = os.environ["API_SECRET_KEY"]
+SECRET_KEY = os.environ.get("API_SECRET_KEY")
 
 # Disable debug mode
 DEBUG = False
 
 # Backend
 ALLOWED_HOSTS = [os.environ.get("WEBSITE_HOSTNAME")]
-CSRF_TRUSTED_ORIGINS = ["https://" + os.environ["WEBSITE_HOSTNAME"]]
+CSRF_TRUSTED_ORIGINS = ["https://" + os.environ.get("WEBSITE_HOSTNAME")]
 APPEND_SLASH = True
 
 # Frontend
-CORS_ORIGIN_WHITELIST = ["gitdanir.github.io/Myrdal"]
+CORS_ORIGIN_WHITELIST = ["https://gitdanir.github.io/Myrdal"]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -33,7 +33,7 @@ REST_FRAMEWORK = {
 
 
 # Database configuration
-CONNECTION = os.environ["AZURE_POSTGRESQL_CONNECTIONSTRING"]
+CONNECTION = os.environ.get("AZURE_POSTGRESQL_CONNECTIONSTRING")
 CONNECTION_STR = {
     pair.split("=")[0]: pair.split("=")[1] for pair in CONNECTION.split(" ")
 }
