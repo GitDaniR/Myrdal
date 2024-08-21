@@ -49,7 +49,7 @@ function App() {
       </Route>
       <Route path="*" element={<NotFoundPage/>} />
     </Route>
-  ))
+  ), {basename: import.meta.env.BASE_URL})
 
   return (
       <ToastContext.Provider value={showToast}>
