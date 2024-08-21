@@ -5,10 +5,8 @@
 name: Build and deploy Python app to Azure Web App - myrdal-backend-api
 
 on:
-  workflow_run:
-    workflows: [Test]
-    types:
-      - completed
+  push:
+    branches: ['main']
 
   workflow_dispatch:
 
@@ -46,7 +44,7 @@ jobs:
         with:
           name: python-app
           path: |
-            release.zip
+            backend/release.zip
             !venv/
 
   deploy:
