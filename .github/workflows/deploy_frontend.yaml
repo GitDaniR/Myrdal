@@ -4,7 +4,7 @@ name: Deploy frontend
 on:
   # Triggers the workflow after static analysis is completed.
   workflow_run:
-    workflows: [Static analysis, Test]
+    workflows: [Test]
     types:
       - completed
 
@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist folder
-          path: './dist'
+          path: 'frontend/dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
