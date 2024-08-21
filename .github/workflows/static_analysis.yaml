@@ -24,10 +24,10 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
@@ -35,7 +35,7 @@ jobs:
         run: npm install
 
       - name: Run linters
-        uses: wearerequired/lint-action@v2
+        uses: wearerequired/lint-action@v2.3.0
         with:
           eslint: true
           eslint_dir: 'frontend'
@@ -62,7 +62,7 @@ jobs:
         run: cd backend
 
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: 3.11
 
@@ -70,7 +70,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run linters
-        uses: wearerequired/lint-action@v2
+        uses: wearerequired/lint-action@v2.3.0
         with:
           black: true
           pylint: true
