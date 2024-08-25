@@ -190,7 +190,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS
-CORS_ORIGIN_WHITELIST = ["http://localhost:5173"]
+CORS_ORIGIN_WHITELIST = ["https://localhost:5173"]
 
 # User authentication model
 AUTH_USER_MODEL = "myrdal_api.CustomUser"

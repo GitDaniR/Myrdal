@@ -88,6 +88,10 @@
         @apply block w-full border-2;
     }
 
+    .data-form > select {
+        @apply block w-full border-2;
+    }
+    
     .data-form-btn {
         @apply py-0.5 px-3 border-2 rounded-md bg-[var(--pigment-green)] hover:bg-[var(--cal-poly-green)] 
         delay-100 duration-300 ease-in-out text-black hover:text-[var(--bone-light)];
